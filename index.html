@@ -8,11 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --deep-blue:#0B2545;
-    --blue-2:#13315C;
-    --orange:#F26430;
-    --orange-2:#D9541F;
-    --paper:#F5F6F8;
+    --deep-blue:#0B2E6B;
+    --blue-2:#1650A8;
+    --teal:#00C2A8;
+    --orange:#FF6B35;
+    --orange-2:#E8551F;
+    --gold:#FFB627;
+    --paper:#F5F7FB;
     --white:#FFFFFF;
     --ink:#1B1F27;
     --ink-soft:#5B6470;
@@ -34,8 +36,10 @@
   .top-strip{background:var(--blue-2); font-size:12.5px; padding:6px 0; color:#C9D6E8;}
   .top-strip .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;}
   .navbar{display:flex; align-items:center; gap:20px; padding:14px 18px; flex-wrap:wrap;}
-  .brand{font-size:22px; font-weight:800; letter-spacing:0.5px; color:var(--white);}
-  .brand span{color:var(--orange);}
+  .brand{font-size:22px; font-weight:800; letter-spacing:0.5px; color:var(--white); display:flex; align-items:center; gap:9px;}
+  .brand span{background:linear-gradient(90deg, var(--gold), var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .logo-mark{width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg, var(--teal), var(--blue-2)); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 4px 10px rgba(0,194,168,0.35);}
+  .logo-mark svg{width:19px; height:19px;}
   .tagline{font-size:11px; color:#9FB2CC; margin-top:-2px; letter-spacing:0.4px;}
   .search-bar{flex:1; min-width:200px; display:flex; background:var(--white); border-radius:8px; overflow:hidden;}
   .search-bar input{flex:1; border:none; padding:10px 12px; font-size:14px; outline:none; color:var(--ink);}
@@ -49,21 +53,63 @@
   .cat-menu button.active, .cat-menu button:hover{color:var(--orange);}
 
   /* ---------- HERO ---------- */
-  .hero{background:linear-gradient(120deg, var(--deep-blue) 55%, var(--blue-2) 100%); color:#fff; padding:52px 18px 60px;}
-  .hero .wrap{display:flex; align-items:center; gap:40px; flex-wrap:wrap;}
+  .hero{background:linear-gradient(135deg, var(--deep-blue) 40%, var(--blue-2) 75%, var(--teal) 130%); color:#fff; padding:56px 18px 0; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; top:-80px; right:-60px; width:280px; height:280px; background:radial-gradient(circle, rgba(0,194,168,0.35), transparent 70%); border-radius:50%; z-index:0;}
+  .hero::after{content:""; position:absolute; bottom:40px; left:-80px; width:220px; height:220px; background:radial-gradient(circle, rgba(255,182,39,0.25), transparent 70%); border-radius:50%; z-index:0;}
+  .hero .wrap{display:flex; align-items:center; gap:40px; flex-wrap:wrap; position:relative; z-index:2;}
   .hero-text{flex:1; min-width:280px;}
   .hero-text .eyebrow{color:var(--orange); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px;}
-  .hero-text h1{font-size:clamp(30px,4.5vw,46px); line-height:1.15; margin-bottom:14px;}
-  .hero-text p{color:#C9D6E8; font-size:15.5px; max-width:440px; margin-bottom:22px;}
-  .hero-cta{display:flex; gap:12px; flex-wrap:wrap;}
-  .btn{padding:12px 22px; border-radius:8px; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:8px;}
-  .btn-primary{background:var(--orange); color:#fff;}
+  .hero-text h1{font-family:'Poppins',sans-serif; font-weight:800; font-size:clamp(34px,6vw,54px); line-height:1.08; margin-bottom:16px; letter-spacing:-0.5px;}
+  .hero-text h1 .accent{color:var(--orange);}
+  .hero-text p{color:#C9D6E8; font-size:16px; max-width:440px; margin-bottom:24px;}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:34px;}
+  .btn{padding:13px 24px; border-radius:9px; font-weight:700; font-size:14.5px; display:inline-flex; align-items:center; gap:8px;}
+  .btn-primary{background:var(--orange); color:#fff; box-shadow:0 8px 20px rgba(242,100,48,0.35);}
   .btn-primary:hover{background:var(--orange-2);}
-  .btn-outline{background:transparent; border:1.5px solid rgba(255,255,255,0.5); color:#fff;}
-  .hero-panel{flex:0 0 300px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:20px;}
-  .hero-panel h3{font-size:14px; margin-bottom:12px; color:var(--orange);}
-  .spec-line{display:flex; justify-content:space-between; font-size:12.5px; padding:7px 0; border-bottom:1px dashed rgba(255,255,255,0.15); color:#C9D6E8;}
-  .spec-line b{color:#fff; font-family:'JetBrains Mono',monospace;}
+  .btn-outline{background:rgba(255,255,255,0.08); border:1.5px solid rgba(255,255,255,0.4); color:#fff;}
+  .promo-stack{flex:0 0 260px; display:flex; flex-direction:column; gap:12px;}
+  .promo-card{border-radius:14px; padding:18px; background:linear-gradient(135deg, var(--gold), var(--orange)); color:#1B1F27;}
+  .promo-tag{font-size:11px; font-weight:800; letter-spacing:1px; margin-bottom:6px; color:#7A3A00;}
+  .promo-big{font-family:'Poppins',sans-serif; font-weight:800; font-size:20px; margin-bottom:2px;}
+  .promo-sub{font-size:12px; color:#7A3A00; margin-bottom:12px;}
+  .promo-btn{display:inline-block; background:#1B1F27; color:#fff; font-size:12.5px; font-weight:700; padding:8px 14px; border-radius:7px;}
+  .promo-mini{display:flex; gap:10px; align-items:center; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:12px 14px;}
+  .promo-mini .ic{font-size:20px;}
+  .promo-mini b{display:block; font-size:12.5px; color:#fff;}
+  .promo-mini small{font-size:11px; color:#AEBEDA;}
+
+  /* stats bar */
+  .stats-bar{position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:30px; padding:36px 18px 44px; max-width:1180px; margin:0 auto;}
+  .stat-item{min-width:110px;}
+  .stat-item .num{font-family:'Poppins',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,34px); color:#fff; display:flex; align-items:baseline; gap:4px;}
+  .stat-item .num .star{color:var(--orange); font-size:0.65em;}
+  .stat-item .lbl{font-size:12.5px; color:#AEBEDA; margin-top:2px;}
+
+  /* floating testimonial */
+  .float-testimonial{position:relative; z-index:2; max-width:340px; margin:0 auto -34px; background:#fff; border-radius:14px; padding:16px 18px; box-shadow:0 16px 36px rgba(11,37,69,0.25); display:flex; gap:12px; align-items:flex-start;}
+  .float-testimonial .avatar{width:38px; height:38px; border-radius:50%; background:var(--orange); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex-shrink:0;}
+  .float-testimonial .name{font-weight:700; font-size:13px; color:var(--deep-blue);}
+  .float-testimonial .stars{color:#F5A623; font-size:11.5px; margin:2px 0 4px;}
+  .float-testimonial p{font-size:12.5px; color:var(--ink-soft); line-height:1.4;}
+  .hero-wave{position:absolute; bottom:0; left:0; right:0; height:60px; background:var(--paper); border-radius:50% 50% 0 0 / 100% 100% 0 0; transform:scale(1.6); z-index:1;}
+
+  /* why-us cards */
+  .why-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
+  .why-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:24px; text-align:left;}
+  .why-card .icon-box{width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,var(--teal),var(--blue-2)); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:14px;}
+  .why-card h5{font-size:15.5px; color:var(--deep-blue); margin-bottom:8px; font-family:'Poppins',sans-serif; font-weight:700;}
+  .why-card p{font-size:13px; color:var(--ink-soft); line-height:1.5;}
+
+  /* key features dark section */
+  .key-features{background:var(--deep-blue); padding:56px 18px;}
+  .key-features .section-head h2, .key-features .section-head .eyebrow{color:#fff;}
+  .key-features .section-head .eyebrow{color:var(--orange);}
+  .key-features .section-head p{color:#AEBEDA; font-size:14px; margin-top:6px;}
+  .kf-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px; margin-top:26px;}
+  .kf-card{background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:20px;}
+  .kf-card .ic{font-size:24px; margin-bottom:10px;}
+  .kf-card h5{color:#fff; font-size:14.5px; margin-bottom:6px;}
+  .kf-card p{color:#AEBEDA; font-size:12.5px; line-height:1.5;}
 
   /* ---------- CATEGORY GRID ---------- */
   .section{padding:44px 18px;}
@@ -72,7 +118,7 @@
   .section-head .eyebrow{color:var(--orange); font-weight:700; font-size:12px; letter-spacing:1.5px; text-transform:uppercase;}
   .cat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px;}
   .cat-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px 14px; text-align:center; transition:transform .15s, box-shadow .15s;}
-  .cat-card:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(11,37,69,0.08); border-color:var(--orange);}
+  .cat-card:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(11,37,69,0.1); border-color:var(--teal);}
   .cat-card .ic{font-size:28px; margin-bottom:8px;}
   .cat-card .name{font-weight:600; font-size:13.5px; color:var(--deep-blue);}
 
@@ -80,7 +126,8 @@
   .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;}
   .filters select, .filters input{padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-size:13px; background:#fff;}
   .product-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px;}
-  .card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; position:relative;}
+  .card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; position:relative; animation:fadeIn .35s ease;}
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
   .card .badge{position:absolute; top:10px; left:10px; background:var(--orange); color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:0.4px; z-index:2;}
   .card .fav{position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; z-index:2;}
   .card-img{aspect-ratio:1/0.85; background:var(--paper); display:flex; align-items:center; justify-content:center; overflow:hidden;}
@@ -171,8 +218,11 @@
   <div class="top-strip"><div class="wrap"><span>📞 WhatsApp orders: +234 705 468 0307</span><span>Nationwide delivery · Bank transfer accepted</span></div></div>
   <div class="navbar wrap" style="max-width:1180px; margin:0 auto;">
     <div>
-      <div class="brand">IZU<span>VERA</span></div>
-      <div class="tagline">Your Home, Your Pride</div>
+      <div class="brand" id="secretTrigger" onclick="handleSecretTap()">
+        <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 11L12 3L21 11" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10V20H19V10" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20V14H14V20" stroke="#FFB627" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span id="brandName1">IZU</span><span id="brandName2">VERA</span>
+      </div>
+      <div class="tagline" id="brandTagline">Your Home, Your Pride</div>
     </div>
     <div class="search-bar">
       <input id="searchInput" type="text" placeholder="Search PPR pipes, mixers, doors...">
@@ -187,23 +237,42 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="heroSection">
   <div class="wrap">
     <div class="hero-text">
       <div class="eyebrow">Nationwide Delivery · Trusted Supplier</div>
-      <h1>Quality building materials, delivered to your door.</h1>
-      <p>Plumbing, bathroom, kitchen and door fittings — sourced right, priced fair. Order in two taps on WhatsApp.</p>
+      <h1 id="heroHeadline">Your Home,<br><span class="accent">Your Pride.</span></h1>
+      <p id="heroSubtext">Plumbing, bathroom, kitchen and door fittings — sourced right, priced fair. Order in two taps on WhatsApp.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#shop">Shop Now</a>
         <a class="btn btn-outline" href="https://wa.me/2347054680307?text=Hi%20Izuvera%2C%20I%20have%20a%20question%20about%20your%20products" target="_blank">Chat on WhatsApp</a>
       </div>
     </div>
-    <div class="hero-panel">
-      <h3>WHY IZUVERA</h3>
-      <div class="spec-line"><span>Delivery</span><b>NATIONWIDE</b></div>
-      <div class="spec-line"><span>Payment</span><b>BANK / WA</b></div>
-      <div class="spec-line"><span>Categories</span><b>5 CORE</b></div>
-      <div class="spec-line"><span>Support</span><b>WHATSAPP</b></div>
+    <div class="promo-stack">
+      <div class="promo-card promo-flash">
+        <div class="promo-tag">FLASH DEALS</div>
+        <div class="promo-big">Up to 30% OFF</div>
+        <div class="promo-sub">On selected items</div>
+        <a href="#shop" class="promo-btn">Shop Now →</a>
+      </div>
+      <div class="promo-mini"><span class="ic">🚚</span><div><b>Free Delivery</b><small>On orders over ₦100,000</small></div></div>
+      <div class="promo-mini"><span class="ic">✅</span><div><b>100% Original</b><small>Quality products guaranteed</small></div></div>
+      <div class="promo-mini"><span class="ic">🔒</span><div><b>Secure Payment</b><small>WhatsApp &amp; bank transfer</small></div></div>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">5</div><div class="lbl">Core Categories</div></div>
+    <div class="stat-item"><div class="num">100%</div><div class="lbl">Nationwide Delivery</div></div>
+    <div class="stat-item"><div class="num">4.8<span class="star">★</span></div><div class="lbl">Customer Rating</div></div>
+    <div class="stat-item"><div class="num">24/7</div><div class="lbl">WhatsApp Support</div></div>
+  </div>
+  <div class="hero-wave"></div>
+  <div class="float-testimonial">
+    <div class="avatar">A</div>
+    <div>
+      <div class="name">Amaka O.</div>
+      <div class="stars">★★★★★</div>
+      <p>Ordered pipes and a mixer tap — fast reply on WhatsApp, delivered in 2 days!</p>
     </div>
   </div>
 </section>
@@ -217,6 +286,18 @@
       </div>
     </div>
     <div class="cat-grid" id="catGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="bestsellers" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Customer Favourites</div>
+        <h2>Best Selling</h2>
+      </div>
+    </div>
+    <div class="product-grid" id="bestSellerGrid"></div>
   </div>
 </section>
 
@@ -241,13 +322,37 @@
   </div>
 </section>
 
-<section class="section flash">
+<section class="section">
   <div class="wrap">
-    <div class="trust-strip">
-      <div class="trust-item"><div class="ic">🚚</div><div><h5>Nationwide Delivery</h5><p>We deliver across Nigeria, fee calculated per order.</p></div></div>
-      <div class="trust-item"><div class="ic">💬</div><div><h5>Order on WhatsApp</h5><p>Every product checks out straight to WhatsApp — no forms.</p></div></div>
-      <div class="trust-item"><div class="ic">🏦</div><div><h5>Bank Transfer Accepted</h5><p>Pay by transfer, we confirm and dispatch same day.</p></div></div>
-      <div class="trust-item"><div class="ic">✅</div><div><h5>Verified Products</h5><p>Every listing checked for spec, stock and quality.</p></div></div>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Why Choose Us</div>
+        <h2>Why Izuvera?</h2>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="icon-box">🚚</div><h5>Nationwide Delivery</h5><p>We deliver across Nigeria, fee calculated per order — wherever you're building.</p></div>
+      <div class="why-card"><div class="icon-box">💬</div><h5>Order on WhatsApp</h5><p>Every product checks out straight to WhatsApp — no forms, no stress.</p></div>
+      <div class="why-card"><div class="icon-box">🏦</div><h5>Bank Transfer Accepted</h5><p>Pay by transfer, we confirm and dispatch the same day.</p></div>
+      <div class="why-card"><div class="icon-box">✅</div><h5>Verified Products</h5><p>Every listing checked for spec, stock, and quality before it goes live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="key-features">
+  <div class="wrap">
+    <div class="section-head" style="display:block;">
+      <div class="eyebrow">What You Get</div>
+      <h2>Key Features of Izuvera</h2>
+      <p>Everything you need to source, order, and receive quality building materials.</p>
+    </div>
+    <div class="kf-grid">
+      <div class="kf-card"><div class="ic">🔧</div><h5>Full Category Range</h5><p>Plumbing, bathroom, kitchen, doors and building materials — all in one place.</p></div>
+      <div class="kf-card"><div class="ic">🛒</div><h5>Simple Cart</h5><p>Add multiple items, review your order, checkout instantly on WhatsApp.</p></div>
+      <div class="kf-card"><div class="ic">🏷️</div><h5>Flash Deals & Discounts</h5><p>Spot sale-tagged products with clear discount pricing on every card.</p></div>
+      <div class="kf-card"><div class="ic">📦</div><h5>Live Stock Status</h5><p>See exactly what's in stock, low, or sold out before you order.</p></div>
+      <div class="kf-card"><div class="ic">🔍</div><h5>Search & Filter</h5><p>Find products fast by category, price, or keyword.</p></div>
+      <div class="kf-card"><div class="ic">📱</div><h5>Quick View</h5><p>Tap any product photo for full specs and details before you buy.</p></div>
     </div>
   </div>
 </section>
@@ -269,7 +374,10 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div class="brand" style="color:#fff; font-size:18px; margin-bottom:8px;">IZU<span style="color:var(--orange);">VERA</span></div>
+        <div class="brand" style="color:#fff; font-size:18px; margin-bottom:8px;">
+          <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 11L12 3L21 11" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10V20H19V10" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20V14H14V20" stroke="#FFB627" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>IZU</span><span>VERA</span>
+        </div>
         <p>Your Home, Your Pride. Quality plumbing, bathroom, kitchen and building materials — nationwide.</p>
       </div>
       <div>
@@ -293,8 +401,6 @@
   </div>
 </footer>
 
-<div class="admin-fab" onclick="openAdminLogin()">🔧</div>
-
 <!-- CART DRAWER -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
 <div class="drawer" id="cartDrawer">
@@ -306,12 +412,16 @@
   </div>
 </div>
 
+<!-- QUICK VIEW MODAL (customers) -->
+<div class="modal-overlay" id="quickViewModal">
+  <div class="modal" id="quickViewBody"></div>
+</div>
+
 <!-- ADMIN LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
     <h3>Admin Login</h3>
     <div class="field"><label>Password</label><input type="password" id="adminPass" placeholder="Enter admin password"></div>
-    <p style="font-size:11.5px; color:var(--ink-soft); margin-top:-4px;">Default password: izuvera2026 — change it in the code before going live.</p>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('loginModal')">Cancel</button>
       <button class="btn-primary" style="color:#fff;" onclick="checkAdminPass()">Login</button>
@@ -344,6 +454,14 @@
       <div class="field"><label>Stock Quantity</label><input id="pStock" type="number" placeholder="20"></div>
     </div>
     <div class="field"><label>Description</label><textarea id="pDesc" rows="2" placeholder="Short description"></textarea></div>
+    <div class="field-row">
+      <div class="field"><label>Rating (0–5)</label><input id="pRating" type="number" step="0.1" min="0" max="5" placeholder="4.5"></div>
+      <div class="field"><label>Review Count</label><input id="pReviews" type="number" placeholder="12"></div>
+    </div>
+    <div class="field" style="display:flex; align-items:center; gap:8px;">
+      <input type="checkbox" id="pBestSeller" style="width:auto;">
+      <label style="margin:0;">Mark as Best Seller</label>
+    </div>
     <div class="field">
       <label>Product Photo</label>
       <input type="file" id="pImageFile" accept="image/*" onchange="previewImage(event)">
@@ -352,6 +470,38 @@
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('productModal')">Cancel</button>
       <button class="btn-primary" style="color:#fff;" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO BANNER MODAL (admin only) -->
+<div class="modal-overlay" id="heroModal">
+  <div class="modal">
+    <h3>Edit Homepage Banner</h3>
+    <div class="field"><label>Headline (main)</label><input id="hHead1" placeholder="e.g. Your Home,"></div>
+    <div class="field"><label>Headline (highlighted)</label><input id="hHead2" placeholder="e.g. Your Pride."></div>
+    <div class="field"><label>Subtext</label><textarea id="hSubtext" rows="2"></textarea></div>
+    <div class="field">
+      <label>Banner Photo (optional)</label>
+      <input type="file" id="hImageFile" accept="image/*" onchange="previewHeroImage(event)">
+      <img id="hImagePreview" class="img-preview" style="display:none;">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('heroModal')">Cancel</button>
+      <button class="btn-primary" style="color:#fff;" onclick="saveHero()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- STORE NAME MODAL (admin only) -->
+<div class="modal-overlay" id="storeModal">
+  <div class="modal">
+    <h3>Edit Store Name</h3>
+    <div class="field"><label>Store Name</label><input id="sName" placeholder="e.g. Izuvera"></div>
+    <div class="field"><label>Tagline / Motto</label><input id="sTagline" placeholder="e.g. Your Home, Your Pride"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('storeModal')">Cancel</button>
+      <button class="btn-primary" style="color:#fff;" onclick="saveStoreName()">Save</button>
     </div>
   </div>
 </div>
@@ -371,7 +521,7 @@
 
 <script>
 /* ===================== DATA ===================== */
-const ADMIN_PASSWORD = "izuvera2026"; // change before going live
+const ADMIN_PASSWORD_HASH = "4a9c3e17844253e4ac2a5936c884aa9311596f211f7cca23070167766ac2f028"; // hashed — change via Claude if you need a new password
 const WA_NUMBER = "2347054680307";
 
 const CATEGORIES = [
@@ -383,18 +533,20 @@ const CATEGORIES = [
 ];
 
 const DEFAULT_PRODUCTS = [
-  {id:"1", name:"20mm PPR Pipe (3m length)", category:"plumbing", brand:"Tommy", model:"PPR-20-BLU", colour:"Blue", material:"PPR, 20mm", price:4500, discount:3900, stock:40, desc:"Durable PPR pipe for cold and hot water plumbing lines.", img:""},
-  {id:"2", name:"1/2 Inch Gate Valve", category:"plumbing", brand:"Kitec", model:"GV-12-BRS", colour:"Brass", material:"Brass", price:3200, discount:0, stock:25, desc:"Heavy-duty brass gate valve for water flow control.", img:""},
-  {id:"3", name:"Basin Mixer Tap — Chrome", category:"bathroom", brand:"Vero", model:"BM-CHR-01", colour:"Chrome", material:"Stainless Steel", price:18500, discount:15900, stock:12, desc:"Single-lever chrome basin mixer with ceramic disc cartridge.", img:""},
-  {id:"4", name:"Wall-Hung Toilet Set", category:"bathroom", brand:"Izuvera Home", model:"WHT-WHT-02", colour:"White", material:"Vitreous China", price:85000, discount:0, stock:6, desc:"Modern wall-hung toilet with soft-close seat.", img:""},
-  {id:"5", name:"Stainless Kitchen Sink — Double Bowl", category:"kitchen", brand:"Franke", model:"KS-DB-304", colour:"Silver", material:"Stainless Steel 304", price:42000, discount:37500, stock:9, desc:"Double bowl kitchen sink, corrosion resistant.", img:""},
-  {id:"6", name:"Security Steel Door — Single Leaf", category:"doors", brand:"Izuvera Home", model:"SD-STL-07", colour:"Grey", material:"Steel, 3-point lock", price:145000, discount:0, stock:4, desc:"Reinforced steel security door, high security rating.", img:""},
-  {id:"7", name:"Flush Interior Door", category:"doors", brand:"Woodmax", model:"FD-WD-11", colour:"Brown", material:"Solid Wood", price:38000, discount:32000, stock:15, desc:"Smooth flush door for bedrooms and offices.", img:""},
-  {id:"8", name:"Bag of Cement (Dangote 42.5)", category:"building", brand:"Dangote", model:"CEM-425-50KG", colour:"Grey", material:"Portland Cement", price:9200, discount:0, stock:100, desc:"Standard 50kg bag of cement for all construction needs.", img:""}
+  {id:"1", name:"20mm PPR Pipe (3m length)", category:"plumbing", brand:"Tommy", model:"PPR-20-BLU", colour:"Blue", material:"PPR, 20mm", price:4500, discount:3900, stock:40, rating:4.5, reviews:24, bestSeller:true, desc:"Durable PPR pipe for cold and hot water plumbing lines.", img:""},
+  {id:"2", name:"1/2 Inch Gate Valve", category:"plumbing", brand:"Kitec", model:"GV-12-BRS", colour:"Brass", material:"Brass", price:3200, discount:0, stock:25, rating:4.2, reviews:12, bestSeller:false, desc:"Heavy-duty brass gate valve for water flow control.", img:""},
+  {id:"3", name:"Basin Mixer Tap — Chrome", category:"bathroom", brand:"Vero", model:"BM-CHR-01", colour:"Chrome", material:"Stainless Steel", price:18500, discount:15900, stock:12, rating:4.7, reviews:18, bestSeller:true, desc:"Single-lever chrome basin mixer with ceramic disc cartridge.", img:""},
+  {id:"4", name:"Wall-Hung Toilet Set", category:"bathroom", brand:"Izuvera Home", model:"WHT-WHT-02", colour:"White", material:"Vitreous China", price:85000, discount:0, stock:6, rating:4.8, reviews:9, bestSeller:true, desc:"Modern wall-hung toilet with soft-close seat.", img:""},
+  {id:"5", name:"Stainless Kitchen Sink — Double Bowl", category:"kitchen", brand:"Franke", model:"KS-DB-304", colour:"Silver", material:"Stainless Steel 304", price:42000, discount:37500, stock:9, rating:4.4, reviews:31, bestSeller:false, desc:"Double bowl kitchen sink, corrosion resistant.", img:""},
+  {id:"6", name:"Security Steel Door — Single Leaf", category:"doors", brand:"Izuvera Home", model:"SD-STL-07", colour:"Grey", material:"Steel, 3-point lock", price:145000, discount:0, stock:4, rating:4.3, reviews:12, bestSeller:false, desc:"Reinforced steel security door, high security rating.", img:""},
+  {id:"7", name:"Flush Interior Door", category:"doors", brand:"Woodmax", model:"FD-WD-11", colour:"Brown", material:"Solid Wood", price:38000, discount:32000, stock:15, rating:4.1, reviews:15, bestSeller:false, desc:"Smooth flush door for bedrooms and offices.", img:""},
+  {id:"8", name:"Bag of Cement (Dangote 42.5)", category:"building", brand:"Dangote", model:"CEM-425-50KG", colour:"Grey", material:"Portland Cement", price:9200, discount:0, stock:100, rating:4.6, reviews:47, bestSeller:true, desc:"Standard 50kg bag of cement for all construction needs.", img:""}
 ];
 
 let products = JSON.parse(localStorage.getItem("izuvera_products") || "null") || DEFAULT_PRODUCTS;
 let bankDetails = JSON.parse(localStorage.getItem("izuvera_bank") || "null") || {bank:"", acct:""};
+let storeSettings = JSON.parse(localStorage.getItem("izuvera_store") || "null") || {name:"IZUVERA", tagline:"Your Home, Your Pride"};
+let heroSettings = JSON.parse(localStorage.getItem("izuvera_hero") || "null") || {headline1:"Your Home,", headline2:"Your Pride.", subtext:"Plumbing, bathroom, kitchen and door fittings — sourced right, priced fair. Order in two taps on WhatsApp.", img:""};
 let cart = JSON.parse(localStorage.getItem("izuvera_cart") || "[]");
 let isAdmin = false;
 let activeCategory = "";
@@ -402,6 +554,13 @@ let activeCategory = "";
 function saveProducts(){ localStorage.setItem("izuvera_products", JSON.stringify(products)); }
 function saveCart(){ localStorage.setItem("izuvera_cart", JSON.stringify(cart)); }
 function fmt(n){ return "₦" + Number(n).toLocaleString(); }
+function starHtml(rating, reviews){
+  const r = rating || 0;
+  const full = Math.floor(r);
+  const half = (r - full) >= 0.5;
+  let stars = "★".repeat(full) + (half ? "½" : "") + "☆".repeat(5 - full - (half?1:0));
+  return `<div style="font-size:11.5px; color:#F5A623;">${stars} <span style="color:var(--ink-soft);">(${reviews||0})</span></div>`;
+}
 
 /* ===================== RENDER: CATEGORIES ===================== */
 function renderCategories(){
@@ -446,14 +605,25 @@ function applyFilters(){
   if(sort==="new") list = list.slice().reverse();
 
   renderProductGrid(list);
+  renderBestSellers();
 }
 
-function renderProductGrid(list){
-  const grid = document.getElementById("productGrid");
+function renderBestSellers(){
+  const best = products.filter(p=>p.bestSeller).slice(0,4);
+  const section = document.getElementById("bestsellers");
+  if(best.length===0){ section.style.display = "none"; return; }
+  section.style.display = "";
+  renderProductGrid(best, "bestSellerGrid");
+}
+
+function renderProductGrid(list, targetId){
+  targetId = targetId || "productGrid";
+  const grid = document.getElementById(targetId);
   if(list.length===0){ grid.innerHTML = `<div class="empty-msg">No products found. Try a different search or category.</div>`; return; }
   grid.innerHTML = list.map(p=>{
     const catName = CATEGORIES.find(c=>c.id===p.category)?.name || p.category;
     const hasDiscount = p.discount && p.discount < p.price;
+    const isNew = !isNaN(Number(p.id)) && (Date.now() - Number(p.id)) < 1000*60*60*24*7;
     const stockLabel = p.stock===0 ? '<span class="stock out">Out of stock</span>' : p.stock<=5 ? `<span class="stock low">Only ${p.stock} left</span>` : `<span class="stock">In stock</span>`;
     const imgTag = p.img ? `<img src="${p.img}">` : `<div style="font-size:34px;">📦</div>`;
     const adminControls = isAdmin ? `
@@ -463,12 +633,13 @@ function renderProductGrid(list){
       </div>` : "";
     return `
     <div class="card">
-      ${hasDiscount ? '<div class="badge">SALE</div>' : ""}
+      ${hasDiscount ? '<div class="badge">SALE</div>' : (isNew ? '<div class="badge" style="background:var(--deep-blue);">NEW</div>' : "")}
       <div class="fav" title="Save">♡</div>
-      <div class="card-img">${imgTag}</div>
+      <div class="card-img" onclick="openQuickView('${p.id}')" style="cursor:pointer;">${imgTag}</div>
       <div class="card-body">
         <div class="cat-tag">${catName}</div>
         <h4>${p.name}</h4>
+        ${starHtml(p.rating, p.reviews)}
         <div class="spec-strip"><span>${p.model||"—"}</span><span>${p.material||""}</span></div>
         <div class="price-row">
           <span class="price">${fmt(hasDiscount?p.discount:p.price)}</span>
@@ -483,6 +654,30 @@ function renderProductGrid(list){
       ${adminControls}
     </div>`;
   }).join("");
+}
+
+function openQuickView(id){
+  const p = products.find(pr=>pr.id===id);
+  if(!p) return;
+  const catName = CATEGORIES.find(c=>c.id===p.category)?.name || p.category;
+  const hasDiscount = p.discount && p.discount < p.price;
+  const imgTag = p.img ? `<img src="${p.img}" style="width:100%; border-radius:10px; margin-bottom:14px;">` : `<div style="font-size:50px; text-align:center; padding:30px 0;">📦</div>`;
+  document.getElementById("quickViewBody").innerHTML = `
+    ${imgTag}
+    <div class="cat-tag">${catName}</div>
+    <h3 style="margin:6px 0 10px;">${p.name}</h3>
+    <div class="spec-strip" style="margin-bottom:10px;"><span>${p.model||"—"}</span><span>${p.material||""}</span></div>
+    <div class="price-row" style="margin-bottom:6px;">
+      <span class="price">${fmt(hasDiscount?p.discount:p.price)}</span>
+      ${hasDiscount ? `<span class="price-old">${fmt(p.price)}</span>` : ""}
+    </div>
+    <p style="font-size:13px; color:var(--ink-soft); margin-bottom:6px;">Brand: ${p.brand||"—"} · Colour: ${p.colour||"—"}</p>
+    <p style="font-size:13.5px; color:var(--ink); margin-bottom:16px;">${p.desc||""}</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('quickViewModal')">Close</button>
+      <a class="btn btn-primary" style="flex:1; justify-content:center;" href="${buildWaLink(p)}" target="_blank">Buy on WhatsApp</a>
+    </div>`;
+  document.getElementById("quickViewModal").classList.add("open");
 }
 
 function buildWaLink(p){
@@ -571,14 +766,30 @@ function openAdminLogin(){
   if(isAdmin){ toggleAdmin(false); return; }
   document.getElementById("loginModal").classList.add("open");
 }
-function checkAdminPass(){
+async function checkAdminPass(){
   const val = document.getElementById("adminPass").value;
-  if(val === ADMIN_PASSWORD){
+  const encoder = new TextEncoder();
+  const data = encoder.encode(val);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2,"0")).join("");
+  if(hashHex === ADMIN_PASSWORD_HASH){
     toggleAdmin(true);
     closeModal("loginModal");
     document.getElementById("adminPass").value = "";
   } else {
     alert("Incorrect password.");
+  }
+}
+
+let tapCount = 0, tapTimer;
+function handleSecretTap(){
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(()=>{ tapCount = 0; }, 1500);
+  if(tapCount >= 5){
+    tapCount = 0;
+    openAdminLogin();
   }
 }
 function toggleAdmin(state){
@@ -605,9 +816,27 @@ function renderAdminExtras(){
     bankBtn.innerHTML = "Edit Bank Details";
     bankBtn.onclick = ()=>openBankModal();
     document.body.appendChild(bankBtn);
+
+    const storeBtn = document.createElement("button");
+    storeBtn.id = "adminStoreBtn";
+    storeBtn.className = "btn btn-outline";
+    storeBtn.style.cssText = "position:fixed; bottom:130px; right:18px; z-index:60; background:#fff; color:var(--deep-blue); border:1px solid var(--line);";
+    storeBtn.innerHTML = "Edit Store Name";
+    storeBtn.onclick = ()=>openStoreModal();
+    document.body.appendChild(storeBtn);
+
+    const heroBtn = document.createElement("button");
+    heroBtn.id = "adminHeroBtn";
+    heroBtn.className = "btn btn-outline";
+    heroBtn.style.cssText = "position:fixed; bottom:186px; right:18px; z-index:60; background:#fff; color:var(--deep-blue); border:1px solid var(--line);";
+    heroBtn.innerHTML = "Edit Homepage Banner";
+    heroBtn.onclick = ()=>openHeroModal();
+    document.body.appendChild(heroBtn);
   } else if(!isAdmin && existing){
     existing.remove();
     document.getElementById("adminBankBtn")?.remove();
+    document.getElementById("adminStoreBtn")?.remove();
+    document.getElementById("adminHeroBtn")?.remove();
   }
 }
 
@@ -644,9 +873,13 @@ function openProductModal(id){
     document.getElementById("pMaterial").value = p.material;
     document.getElementById("pStock").value = p.stock;
     document.getElementById("pDesc").value = p.desc;
+    document.getElementById("pRating").value = p.rating || "";
+    document.getElementById("pReviews").value = p.reviews || "";
+    document.getElementById("pBestSeller").checked = !!p.bestSeller;
     if(p.img){ pendingImage = p.img; document.getElementById("pImagePreview").src = p.img; document.getElementById("pImagePreview").style.display="block"; }
   } else {
-    ["pName","pBrand","pPrice","pDiscount","pModel","pColour","pMaterial","pStock","pDesc"].forEach(f=>document.getElementById(f).value="");
+    ["pName","pBrand","pPrice","pDiscount","pModel","pColour","pMaterial","pStock","pDesc","pRating","pReviews"].forEach(f=>document.getElementById(f).value="");
+    document.getElementById("pBestSeller").checked = false;
   }
   document.getElementById("productModal").classList.add("open");
 }
@@ -669,6 +902,9 @@ function saveProduct(){
     material: document.getElementById("pMaterial").value,
     stock: Number(document.getElementById("pStock").value)||0,
     desc: document.getElementById("pDesc").value,
+    rating: Number(document.getElementById("pRating").value)||0,
+    reviews: Number(document.getElementById("pReviews").value)||0,
+    bestSeller: document.getElementById("pBestSeller").checked,
     img: pendingImage
   };
   const idx = products.findIndex(p=>p.id===id);
@@ -702,6 +938,77 @@ function renderBank(){
   document.getElementById("bankAcct").textContent = bankDetails.acct || "— set in Admin —";
 }
 
+/* ===================== ADMIN: STORE NAME ===================== */
+function openStoreModal(){
+  document.getElementById("sName").value = storeSettings.name || "";
+  document.getElementById("sTagline").value = storeSettings.tagline || "";
+  document.getElementById("storeModal").classList.add("open");
+}
+function saveStoreName(){
+  const name = document.getElementById("sName").value.trim() || "IZUVERA";
+  const tagline = document.getElementById("sTagline").value.trim() || "Your Home, Your Pride";
+  storeSettings = {name, tagline};
+  localStorage.setItem("izuvera_store", JSON.stringify(storeSettings));
+  renderStoreName();
+  closeModal("storeModal");
+}
+let pendingHeroImage = "";
+function previewHeroImage(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    pendingHeroImage = reader.result;
+    const prev = document.getElementById("hImagePreview");
+    prev.src = pendingHeroImage;
+    prev.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+}
+function openHeroModal(){
+  document.getElementById("hHead1").value = heroSettings.headline1;
+  document.getElementById("hHead2").value = heroSettings.headline2;
+  document.getElementById("hSubtext").value = heroSettings.subtext;
+  pendingHeroImage = heroSettings.img || "";
+  const prev = document.getElementById("hImagePreview");
+  if(pendingHeroImage){ prev.src = pendingHeroImage; prev.style.display = "block"; } else { prev.style.display = "none"; }
+  document.getElementById("hImageFile").value = "";
+  document.getElementById("heroModal").classList.add("open");
+}
+function saveHero(){
+  heroSettings = {
+    headline1: document.getElementById("hHead1").value || "Your Home,",
+    headline2: document.getElementById("hHead2").value || "Your Pride.",
+    subtext: document.getElementById("hSubtext").value || "",
+    img: pendingHeroImage
+  };
+  localStorage.setItem("izuvera_hero", JSON.stringify(heroSettings));
+  renderHero();
+  closeModal("heroModal");
+}
+
+function renderHero(){
+  document.getElementById("heroHeadline").innerHTML = `${heroSettings.headline1}<br><span class="accent">${heroSettings.headline2}</span>`;
+  document.getElementById("heroSubtext").textContent = heroSettings.subtext;
+  const heroEl = document.getElementById("heroSection");
+  if(heroSettings.img){
+    heroEl.style.backgroundImage = `linear-gradient(135deg, rgba(11,46,107,0.88), rgba(22,80,168,0.82)), url('${heroSettings.img}')`;
+    heroEl.style.backgroundSize = "cover";
+    heroEl.style.backgroundPosition = "center";
+  } else {
+    heroEl.style.backgroundImage = "";
+  }
+}
+
+function renderStoreName(){
+  const name = storeSettings.name || "IZUVERA";
+  const mid = Math.ceil(name.length/2);
+  document.getElementById("brandName1").textContent = name.slice(0, mid);
+  document.getElementById("brandName2").textContent = name.slice(mid);
+  document.getElementById("brandTagline").textContent = storeSettings.tagline || "Your Home, Your Pride";
+  document.title = `${name} — ${storeSettings.tagline || "Your Home, Your Pride"}`;
+}
+
 function closeModal(id){ document.getElementById(id).classList.remove("open"); }
 
 /* ===================== INIT ===================== */
@@ -709,6 +1016,9 @@ renderCategories();
 applyFilters();
 renderCartCount();
 renderBank();
+renderStoreName();
+renderHero();
 </script>
 </body>
 </html>
+
