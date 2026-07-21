@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Izuvera — Your Home, Your Pride</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep-blue:#0B2545;
+    --blue-2:#13315C;
+    --orange:#F26430;
+    --orange-2:#D9541F;
+    --paper:#F5F6F8;
+    --white:#FFFFFF;
+    --ink:#1B1F27;
+    --ink-soft:#5B6470;
+    --line:#E1E5EA;
+    --ok:#2E8B57;
+    --radius:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink); line-height:1.5;}
+  h1,h2,h3,.brand{font-family:'Poppins',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 18px;}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky; top:0; z-index:50; background:var(--deep-blue); color:var(--white);}
+  .top-strip{background:var(--blue-2); font-size:12.5px; padding:6px 0; color:#C9D6E8;}
+  .top-strip .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;}
+  .navbar{display:flex; align-items:center; gap:20px; padding:14px 18px; flex-wrap:wrap;}
+  .brand{font-size:22px; font-weight:800; letter-spacing:0.5px; color:var(--white);}
+  .brand span{color:var(--orange);}
+  .tagline{font-size:11px; color:#9FB2CC; margin-top:-2px; letter-spacing:0.4px;}
+  .search-bar{flex:1; min-width:200px; display:flex; background:var(--white); border-radius:8px; overflow:hidden;}
+  .search-bar input{flex:1; border:none; padding:10px 12px; font-size:14px; outline:none; color:var(--ink);}
+  .search-bar button{background:var(--orange); color:#fff; padding:0 16px; font-weight:600; font-size:14px;}
+  .nav-icons{display:flex; align-items:center; gap:16px; font-size:13px;}
+  .nav-icons button{background:none; color:var(--white); font-size:13px; display:flex; align-items:center; gap:5px;}
+  .cart-count{background:var(--orange); border-radius:50%; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:700;}
+  .cat-menu{background:var(--white); border-top:1px solid var(--line); overflow-x:auto; white-space:nowrap;}
+  .cat-menu .wrap{display:flex; gap:22px; padding:10px 18px;}
+  .cat-menu button{background:none; color:var(--deep-blue); font-size:13.5px; font-weight:600;}
+  .cat-menu button.active, .cat-menu button:hover{color:var(--orange);}
+
+  /* ---------- HERO ---------- */
+  .hero{background:linear-gradient(120deg, var(--deep-blue) 55%, var(--blue-2) 100%); color:#fff; padding:52px 18px 60px;}
+  .hero .wrap{display:flex; align-items:center; gap:40px; flex-wrap:wrap;}
+  .hero-text{flex:1; min-width:280px;}
+  .hero-text .eyebrow{color:var(--orange); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px;}
+  .hero-text h1{font-size:clamp(30px,4.5vw,46px); line-height:1.15; margin-bottom:14px;}
+  .hero-text p{color:#C9D6E8; font-size:15.5px; max-width:440px; margin-bottom:22px;}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{padding:12px 22px; border-radius:8px; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:8px;}
+  .btn-primary{background:var(--orange); color:#fff;}
+  .btn-primary:hover{background:var(--orange-2);}
+  .btn-outline{background:transparent; border:1.5px solid rgba(255,255,255,0.5); color:#fff;}
+  .hero-panel{flex:0 0 300px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:20px;}
+  .hero-panel h3{font-size:14px; margin-bottom:12px; color:var(--orange);}
+  .spec-line{display:flex; justify-content:space-between; font-size:12.5px; padding:7px 0; border-bottom:1px dashed rgba(255,255,255,0.15); color:#C9D6E8;}
+  .spec-line b{color:#fff; font-family:'JetBrains Mono',monospace;}
+
+  /* ---------- CATEGORY GRID ---------- */
+  .section{padding:44px 18px;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:22px; flex-wrap:wrap; gap:10px;}
+  .section-head h2{font-size:22px; color:var(--deep-blue);}
+  .section-head .eyebrow{color:var(--orange); font-weight:700; font-size:12px; letter-spacing:1.5px; text-transform:uppercase;}
+  .cat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px;}
+  .cat-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px 14px; text-align:center; transition:transform .15s, box-shadow .15s;}
+  .cat-card:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(11,37,69,0.08); border-color:var(--orange);}
+  .cat-card .ic{font-size:28px; margin-bottom:8px;}
+  .cat-card .name{font-weight:600; font-size:13.5px; color:var(--deep-blue);}
+
+  /* ---------- PRODUCT GRID ---------- */
+  .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;}
+  .filters select, .filters input{padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-size:13px; background:#fff;}
+  .product-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px;}
+  .card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; position:relative;}
+  .card .badge{position:absolute; top:10px; left:10px; background:var(--orange); color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:0.4px; z-index:2;}
+  .card .fav{position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; z-index:2;}
+  .card-img{aspect-ratio:1/0.85; background:var(--paper); display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .card-img img{width:100%; height:100%; object-fit:cover;}
+  .card-body{padding:14px 14px 16px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .card-body .cat-tag{font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.5px;}
+  .card-body h4{font-size:14.5px; color:var(--ink); line-height:1.3; min-height:38px;}
+  .spec-strip{background:var(--deep-blue); color:#C9D6E8; font-size:10.5px; padding:6px 8px; border-radius:6px; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; letter-spacing:0.3px;}
+  .price-row{display:flex; align-items:baseline; gap:8px; margin-top:2px;}
+  .price{font-weight:700; font-size:16.5px; color:var(--deep-blue);}
+  .price-old{font-size:12.5px; color:#9AA3AE; text-decoration:line-through;}
+  .stock{font-size:11.5px; color:var(--ok); font-weight:600;}
+  .stock.low{color:var(--orange);}
+  .stock.out{color:#C0392B;}
+  .card-actions{display:flex; gap:8px; margin-top:auto;}
+  .btn-sm{flex:1; padding:9px 8px; border-radius:7px; font-size:12.5px; font-weight:600; text-align:center;}
+  .btn-wa{background:#25D366; color:#fff;}
+  .btn-cart{background:var(--paper); color:var(--deep-blue); border:1px solid var(--line);}
+
+  /* ---------- FLASH / TRUST STRIP ---------- */
+  .flash{background:var(--deep-blue); color:#fff;}
+  .trust-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
+  .trust-item{display:flex; gap:10px; align-items:flex-start;}
+  .trust-item .ic{font-size:20px;}
+  .trust-item h5{font-size:13.5px; color:var(--deep-blue); margin-bottom:3px;}
+  .trust-item p{font-size:12px; color:var(--ink-soft);}
+
+  /* ---------- BANK TRANSFER ---------- */
+  .bank-box{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:22px; max-width:520px;}
+  .bank-box h3{color:var(--deep-blue); font-size:16px; margin-bottom:14px;}
+  .bank-row{display:flex; justify-content:space-between; font-size:13.5px; padding:9px 0; border-bottom:1px dashed var(--line);}
+  .bank-row b{font-family:'JetBrains Mono',monospace;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--deep-blue); color:#C9D6E8; padding:44px 18px 20px; margin-top:20px;}
+  .footer-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:26px; margin-bottom:26px;}
+  .footer-grid h5{color:#fff; font-size:13.5px; margin-bottom:12px;}
+  .footer-grid a, .footer-grid p{display:block; font-size:12.5px; margin-bottom:8px; color:#AEBEDA;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.12); padding-top:16px; font-size:12px; text-align:center; color:#8FA1BF;}
+
+  /* ---------- CART DRAWER ---------- */
+  .drawer-overlay{position:fixed; inset:0; background:rgba(11,37,69,0.5); z-index:99; display:none;}
+  .drawer{position:fixed; top:0; right:0; width:min(380px,92vw); height:100%; background:#fff; z-index:100; transform:translateX(100%); transition:transform .25s; display:flex; flex-direction:column;}
+  .drawer.open{transform:translateX(0);}
+  .drawer-overlay.open{display:block;}
+  .drawer-head{padding:18px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;}
+  .drawer-head h3{color:var(--deep-blue); font-size:16px;}
+  .drawer-body{padding:14px 18px; overflow-y:auto; flex:1;}
+  .cart-item{display:flex; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); align-items:center;}
+  .cart-item img{width:48px; height:48px; object-fit:cover; border-radius:6px; background:var(--paper);}
+  .cart-item .ci-info{flex:1;}
+  .cart-item .ci-info h5{font-size:12.5px;}
+  .cart-item .ci-info .p{font-size:12px; color:var(--ink-soft);}
+  .qty-ctrl{display:flex; align-items:center; gap:6px;}
+  .qty-ctrl button{width:22px; height:22px; border-radius:5px; background:var(--paper); border:1px solid var(--line); font-size:13px;}
+  .drawer-foot{padding:16px 18px; border-top:1px solid var(--line);}
+  .drawer-foot .total-row{display:flex; justify-content:space-between; font-weight:700; color:var(--deep-blue); margin-bottom:12px; font-size:15px;}
+
+  /* ---------- ADMIN ---------- */
+  .admin-fab{position:fixed; bottom:18px; left:18px; background:var(--deep-blue); color:#fff; width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; z-index:60; box-shadow:0 6px 16px rgba(0,0,0,0.25);}
+  .modal-overlay{position:fixed; inset:0; background:rgba(11,37,69,0.55); z-index:200; display:none; align-items:center; justify-content:center; padding:16px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:#fff; border-radius:12px; max-width:460px; width:100%; max-height:90vh; overflow-y:auto; padding:24px;}
+  .modal h3{color:var(--deep-blue); margin-bottom:16px; font-size:17px;}
+  .field{margin-bottom:12px;}
+  .field label{font-size:12px; font-weight:600; color:var(--ink-soft); display:block; margin-bottom:5px;}
+  .field input, .field select, .field textarea{width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:7px; font-size:13.5px; font-family:inherit;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .modal-actions{display:flex; gap:10px; margin-top:16px;}
+  .modal-actions button{flex:1; padding:11px; border-radius:8px; font-weight:600; font-size:13.5px;}
+  .btn-cancel{background:var(--paper); color:var(--ink);}
+  .admin-bar{position:fixed; top:0; left:0; right:0; background:var(--orange); color:#fff; font-size:12.5px; font-weight:600; text-align:center; padding:8px; z-index:150; display:none;}
+  .admin-bar.on{display:block;}
+  .admin-bar button{background:rgba(255,255,255,0.2); color:#fff; padding:3px 10px; border-radius:6px; font-size:11.5px; margin-left:10px;}
+  .admin-edit-controls{position:absolute; bottom:0; left:0; right:0; background:rgba(11,37,69,0.92); display:flex; gap:6px; padding:8px; z-index:5;}
+  .admin-edit-controls button{flex:1; padding:6px; border-radius:6px; font-size:11px; font-weight:600;}
+  .btn-edit{background:#fff; color:var(--deep-blue);}
+  .btn-del{background:#C0392B; color:#fff;}
+  .img-preview{width:100%; height:110px; object-fit:cover; border-radius:8px; margin-top:8px; background:var(--paper);}
+  .empty-msg{color:var(--ink-soft); font-size:13.5px; padding:30px 0; text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="admin-bar" id="adminBar">ADMIN MODE — you can add, edit and delete products <button onclick="toggleAdmin(false)">Exit</button></div>
+
+<header>
+  <div class="top-strip"><div class="wrap"><span>📞 WhatsApp orders: +234 705 468 0307</span><span>Nationwide delivery · Bank transfer accepted</span></div></div>
+  <div class="navbar wrap" style="max-width:1180px; margin:0 auto;">
+    <div>
+      <div class="brand">IZU<span>VERA</span></div>
+      <div class="tagline">Your Home, Your Pride</div>
+    </div>
+    <div class="search-bar">
+      <input id="searchInput" type="text" placeholder="Search PPR pipes, mixers, doors...">
+      <button onclick="applyFilters()">Search</button>
+    </div>
+    <div class="nav-icons">
+      <button onclick="openCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </div>
+  <div class="cat-menu">
+    <div class="wrap" id="catMenu"></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <div class="eyebrow">Nationwide Delivery · Trusted Supplier</div>
+      <h1>Quality building materials, delivered to your door.</h1>
+      <p>Plumbing, bathroom, kitchen and door fittings — sourced right, priced fair. Order in two taps on WhatsApp.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#shop">Shop Now</a>
+        <a class="btn btn-outline" href="https://wa.me/2347054680307?text=Hi%20Izuvera%2C%20I%20have%20a%20question%20about%20your%20products" target="_blank">Chat on WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <h3>WHY IZUVERA</h3>
+      <div class="spec-line"><span>Delivery</span><b>NATIONWIDE</b></div>
+      <div class="spec-line"><span>Payment</span><b>BANK / WA</b></div>
+      <div class="spec-line"><span>Categories</span><b>5 CORE</b></div>
+      <div class="spec-line"><span>Support</span><b>WHATSAPP</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Browse</div>
+        <h2>Shop by Category</h2>
+      </div>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Full Catalog</div>
+        <h2>All Products</h2>
+      </div>
+    </div>
+    <div class="filters">
+      <select id="filterCategory" onchange="applyFilters()"><option value="">All Categories</option></select>
+      <select id="filterSort" onchange="applyFilters()">
+        <option value="">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="new">New Arrivals</option>
+      </select>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="section flash">
+  <div class="wrap">
+    <div class="trust-strip">
+      <div class="trust-item"><div class="ic">🚚</div><div><h5>Nationwide Delivery</h5><p>We deliver across Nigeria, fee calculated per order.</p></div></div>
+      <div class="trust-item"><div class="ic">💬</div><div><h5>Order on WhatsApp</h5><p>Every product checks out straight to WhatsApp — no forms.</p></div></div>
+      <div class="trust-item"><div class="ic">🏦</div><div><h5>Bank Transfer Accepted</h5><p>Pay by transfer, we confirm and dispatch same day.</p></div></div>
+      <div class="trust-item"><div class="ic">✅</div><div><h5>Verified Products</h5><p>Every listing checked for spec, stock and quality.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="payment">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">Payment</div><h2>Bank Transfer Details</h2></div></div>
+    <div class="bank-box">
+      <h3>Pay by Bank Transfer</h3>
+      <div class="bank-row"><span>Account Name</span><b>Izuvera Nigeria</b></div>
+      <div class="bank-row"><span>Bank</span><b id="bankName">— set in Admin —</b></div>
+      <div class="bank-row"><span>Account Number</span><b id="bankAcct">— set in Admin —</b></div>
+      <p style="font-size:12px; color:var(--ink-soft); margin-top:12px;">After transfer, send your receipt on WhatsApp with your order details for same-day dispatch confirmation.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="color:#fff; font-size:18px; margin-bottom:8px;">IZU<span style="color:var(--orange);">VERA</span></div>
+        <p>Your Home, Your Pride. Quality plumbing, bathroom, kitchen and building materials — nationwide.</p>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <a href="#categories">Categories</a>
+        <a href="#shop">All Products</a>
+        <a href="#payment">Payment Info</a>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <p>WhatsApp: +234 705 468 0307</p>
+        <a href="https://wa.me/2347054680307" target="_blank">Chat with us →</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <p>About Izuvera</p>
+        <p>Delivery Policy</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Izuvera. Built for a home you're proud of.</div>
+  </div>
+</footer>
+
+<div class="admin-fab" onclick="openAdminLogin()">🔧</div>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
+<div class="drawer" id="cartDrawer">
+  <div class="drawer-head"><h3>Your Cart</h3><button onclick="closeCart()" style="background:none;font-size:20px;">✕</button></div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Total</span><span id="cartTotal">₦0</span></div>
+    <a class="btn btn-primary" style="width:100%; justify-content:center;" id="checkoutBtn" href="#" target="_blank">Checkout on WhatsApp</a>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <h3>Admin Login</h3>
+    <div class="field"><label>Password</label><input type="password" id="adminPass" placeholder="Enter admin password"></div>
+    <p style="font-size:11.5px; color:var(--ink-soft); margin-top:-4px;">Default password: izuvera2026 — change it in the code before going live.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('loginModal')">Cancel</button>
+      <button class="btn-primary" style="color:#fff;" onclick="checkAdminPass()">Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <h3 id="productModalTitle">Add Product</h3>
+    <input type="hidden" id="pId">
+    <div class="field"><label>Product Name</label><input id="pName" placeholder="e.g. 20mm PPR Pipe (3m)"></div>
+    <div class="field-row">
+      <div class="field"><label>Category</label>
+        <select id="pCategory"></select>
+      </div>
+      <div class="field"><label>Brand</label><input id="pBrand" placeholder="e.g. Tommy"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Price (₦)</label><input id="pPrice" type="number" placeholder="5000"></div>
+      <div class="field"><label>Discount Price (₦)</label><input id="pDiscount" type="number" placeholder="optional"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Model</label><input id="pModel" placeholder="e.g. PPR-20-BLU"></div>
+      <div class="field"><label>Colour</label><input id="pColour" placeholder="e.g. Blue"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Material / Size</label><input id="pMaterial" placeholder="e.g. PPR, 20mm"></div>
+      <div class="field"><label>Stock Quantity</label><input id="pStock" type="number" placeholder="20"></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="pDesc" rows="2" placeholder="Short description"></textarea></div>
+    <div class="field">
+      <label>Product Photo</label>
+      <input type="file" id="pImageFile" accept="image/*" onchange="previewImage(event)">
+      <img id="pImagePreview" class="img-preview" style="display:none;">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('productModal')">Cancel</button>
+      <button class="btn-primary" style="color:#fff;" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- BANK DETAILS MODAL (admin only) -->
+<div class="modal-overlay" id="bankModal">
+  <div class="modal">
+    <h3>Edit Bank Transfer Details</h3>
+    <div class="field"><label>Bank Name</label><input id="bBank" placeholder="e.g. GTBank"></div>
+    <div class="field"><label>Account Number</label><input id="bAcct" placeholder="e.g. 0123456789"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('bankModal')">Cancel</button>
+      <button class="btn-primary" style="color:#fff;" onclick="saveBank()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+const ADMIN_PASSWORD = "izuvera2026"; // change before going live
+const WA_NUMBER = "2347054680307";
+
+const CATEGORIES = [
+  {id:"plumbing", name:"Plumbing Materials", icon:"🔧"},
+  {id:"bathroom", name:"Bathroom Accessories", icon:"🚿"},
+  {id:"kitchen", name:"Kitchen Fittings", icon:"🍽️"},
+  {id:"doors", name:"Doors", icon:"🚪"},
+  {id:"building", name:"Building Materials", icon:"🧱"}
+];
+
+const DEFAULT_PRODUCTS = [
+  {id:"1", name:"20mm PPR Pipe (3m length)", category:"plumbing", brand:"Tommy", model:"PPR-20-BLU", colour:"Blue", material:"PPR, 20mm", price:4500, discount:3900, stock:40, desc:"Durable PPR pipe for cold and hot water plumbing lines.", img:""},
+  {id:"2", name:"1/2 Inch Gate Valve", category:"plumbing", brand:"Kitec", model:"GV-12-BRS", colour:"Brass", material:"Brass", price:3200, discount:0, stock:25, desc:"Heavy-duty brass gate valve for water flow control.", img:""},
+  {id:"3", name:"Basin Mixer Tap — Chrome", category:"bathroom", brand:"Vero", model:"BM-CHR-01", colour:"Chrome", material:"Stainless Steel", price:18500, discount:15900, stock:12, desc:"Single-lever chrome basin mixer with ceramic disc cartridge.", img:""},
+  {id:"4", name:"Wall-Hung Toilet Set", category:"bathroom", brand:"Izuvera Home", model:"WHT-WHT-02", colour:"White", material:"Vitreous China", price:85000, discount:0, stock:6, desc:"Modern wall-hung toilet with soft-close seat.", img:""},
+  {id:"5", name:"Stainless Kitchen Sink — Double Bowl", category:"kitchen", brand:"Franke", model:"KS-DB-304", colour:"Silver", material:"Stainless Steel 304", price:42000, discount:37500, stock:9, desc:"Double bowl kitchen sink, corrosion resistant.", img:""},
+  {id:"6", name:"Security Steel Door — Single Leaf", category:"doors", brand:"Izuvera Home", model:"SD-STL-07", colour:"Grey", material:"Steel, 3-point lock", price:145000, discount:0, stock:4, desc:"Reinforced steel security door, high security rating.", img:""},
+  {id:"7", name:"Flush Interior Door", category:"doors", brand:"Woodmax", model:"FD-WD-11", colour:"Brown", material:"Solid Wood", price:38000, discount:32000, stock:15, desc:"Smooth flush door for bedrooms and offices.", img:""},
+  {id:"8", name:"Bag of Cement (Dangote 42.5)", category:"building", brand:"Dangote", model:"CEM-425-50KG", colour:"Grey", material:"Portland Cement", price:9200, discount:0, stock:100, desc:"Standard 50kg bag of cement for all construction needs.", img:""}
+];
+
+let products = JSON.parse(localStorage.getItem("izuvera_products") || "null") || DEFAULT_PRODUCTS;
+let bankDetails = JSON.parse(localStorage.getItem("izuvera_bank") || "null") || {bank:"", acct:""};
+let cart = JSON.parse(localStorage.getItem("izuvera_cart") || "[]");
+let isAdmin = false;
+let activeCategory = "";
+
+function saveProducts(){ localStorage.setItem("izuvera_products", JSON.stringify(products)); }
+function saveCart(){ localStorage.setItem("izuvera_cart", JSON.stringify(cart)); }
+function fmt(n){ return "₦" + Number(n).toLocaleString(); }
+
+/* ===================== RENDER: CATEGORIES ===================== */
+function renderCategories(){
+  const menu = document.getElementById("catMenu");
+  const grid = document.getElementById("catGrid");
+  const filterSel = document.getElementById("filterCategory");
+  const pCat = document.getElementById("pCategory");
+  menu.innerHTML = `<button class="${activeCategory===''?'active':''}" onclick="setCategory('')">All</button>` +
+    CATEGORIES.map(c=>`<button class="${activeCategory===c.id?'active':''}" onclick="setCategory('${c.id}')">${c.name}</button>`).join("");
+  grid.innerHTML = CATEGORIES.map(c=>`
+    <div class="cat-card" onclick="setCategory('${c.id}'); document.getElementById('shop').scrollIntoView({behavior:'smooth'});">
+      <div class="ic">${c.icon}</div>
+      <div class="name">${c.name}</div>
+    </div>`).join("");
+  filterSel.innerHTML = `<option value="">All Categories</option>` + CATEGORIES.map(c=>`<option value="${c.id}">${c.name}</option>`).join("");
+  pCat.innerHTML = CATEGORIES.map(c=>`<option value="${c.id}">${c.name}</option>`).join("");
+}
+
+function setCategory(id){
+  activeCategory = id;
+  document.getElementById("filterCategory").value = id;
+  renderCategories();
+  applyFilters();
+}
+
+/* ===================== RENDER: PRODUCTS ===================== */
+function applyFilters(){
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const cat = document.getElementById("filterCategory").value;
+  const sort = document.getElementById("filterSort").value;
+  activeCategory = cat;
+  renderCategories();
+
+  let list = products.filter(p=>{
+    const matchSearch = p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search);
+    const matchCat = !cat || p.category === cat;
+    return matchSearch && matchCat;
+  });
+
+  if(sort==="price-asc") list.sort((a,b)=> (a.discount||a.price) - (b.discount||b.price));
+  if(sort==="price-desc") list.sort((a,b)=> (b.discount||b.price) - (a.discount||a.price));
+  if(sort==="new") list = list.slice().reverse();
+
+  renderProductGrid(list);
+}
+
+function renderProductGrid(list){
+  const grid = document.getElementById("productGrid");
+  if(list.length===0){ grid.innerHTML = `<div class="empty-msg">No products found. Try a different search or category.</div>`; return; }
+  grid.innerHTML = list.map(p=>{
+    const catName = CATEGORIES.find(c=>c.id===p.category)?.name || p.category;
+    const hasDiscount = p.discount && p.discount < p.price;
+    const stockLabel = p.stock===0 ? '<span class="stock out">Out of stock</span>' : p.stock<=5 ? `<span class="stock low">Only ${p.stock} left</span>` : `<span class="stock">In stock</span>`;
+    const imgTag = p.img ? `<img src="${p.img}">` : `<div style="font-size:34px;">📦</div>`;
+    const adminControls = isAdmin ? `
+      <div class="admin-edit-controls">
+        <button class="btn-edit" onclick="editProduct('${p.id}')">Edit</button>
+        <button class="btn-del" onclick="deleteProduct('${p.id}')">Delete</button>
+      </div>` : "";
+    return `
+    <div class="card">
+      ${hasDiscount ? '<div class="badge">SALE</div>' : ""}
+      <div class="fav" title="Save">♡</div>
+      <div class="card-img">${imgTag}</div>
+      <div class="card-body">
+        <div class="cat-tag">${catName}</div>
+        <h4>${p.name}</h4>
+        <div class="spec-strip"><span>${p.model||"—"}</span><span>${p.material||""}</span></div>
+        <div class="price-row">
+          <span class="price">${fmt(hasDiscount?p.discount:p.price)}</span>
+          ${hasDiscount ? `<span class="price-old">${fmt(p.price)}</span>` : ""}
+        </div>
+        ${stockLabel}
+        <div class="card-actions">
+          <a class="btn-sm btn-wa" href="${buildWaLink(p)}" target="_blank">Buy on WhatsApp</a>
+          <button class="btn-sm btn-cart" onclick="addToCart('${p.id}')">+ Cart</button>
+        </div>
+      </div>
+      ${adminControls}
+    </div>`;
+  }).join("");
+}
+
+function buildWaLink(p){
+  const priceNow = (p.discount && p.discount < p.price) ? p.discount : p.price;
+  const msg = `Hi Izuvera, I'd like to order:\n\n${p.name}\nModel: ${p.model||"-"}\nPrice: ${fmt(priceNow)}\n\nPlease confirm availability and delivery.`;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+/* ===================== CART ===================== */
+function addToCart(id){
+  const existing = cart.find(c=>c.id===id);
+  if(existing) existing.qty += 1;
+  else cart.push({id, qty:1});
+  saveCart();
+  renderCartCount();
+  openCart();
+}
+
+function renderCartCount(){
+  const count = cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById("cartCount").textContent = count;
+}
+
+function openCart(){
+  document.getElementById("cartDrawer").classList.add("open");
+  document.getElementById("drawerOverlay").classList.add("open");
+  renderCartBody();
+}
+function closeCart(){
+  document.getElementById("cartDrawer").classList.remove("open");
+  document.getElementById("drawerOverlay").classList.remove("open");
+}
+
+function renderCartBody(){
+  const body = document.getElementById("cartBody");
+  if(cart.length===0){ body.innerHTML = `<div class="empty-msg">Your cart is empty.</div>`; updateCartTotal(); return; }
+  body.innerHTML = cart.map(c=>{
+    const p = products.find(pr=>pr.id===c.id);
+    if(!p) return "";
+    const priceNow = (p.discount && p.discount<p.price) ? p.discount : p.price;
+    const imgTag = p.img ? `<img src="${p.img}">` : `<div class="ci-info" style="width:48px;height:48px;background:var(--paper);border-radius:6px;"></div>`;
+    return `
+    <div class="cart-item">
+      <img src="${p.img||''}" onerror="this.style.display='none'">
+      <div class="ci-info">
+        <h5>${p.name}</h5>
+        <div class="p">${fmt(priceNow)}</div>
+        <div class="qty-ctrl">
+          <button onclick="changeQty('${c.id}',-1)">−</button>
+          <span>${c.qty}</span>
+          <button onclick="changeQty('${c.id}',1)">+</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+  updateCartTotal();
+}
+
+function changeQty(id, delta){
+  const item = cart.find(c=>c.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0) cart = cart.filter(c=>c.id!==id);
+  saveCart();
+  renderCartBody();
+  renderCartCount();
+}
+
+function updateCartTotal(){
+  let total = 0;
+  let lines = [];
+  cart.forEach(c=>{
+    const p = products.find(pr=>pr.id===c.id);
+    if(!p) return;
+    const priceNow = (p.discount && p.discount<p.price) ? p.discount : p.price;
+    total += priceNow * c.qty;
+    lines.push(`${c.qty} x ${p.name} — ${fmt(priceNow*c.qty)}`);
+  });
+  document.getElementById("cartTotal").textContent = fmt(total);
+  const msg = `Hi Izuvera, I'd like to order:\n\n${lines.join("\n")}\n\nTotal: ${fmt(total)}\n\nPlease confirm availability and delivery.`;
+  document.getElementById("checkoutBtn").href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+/* ===================== ADMIN: LOGIN ===================== */
+function openAdminLogin(){
+  if(isAdmin){ toggleAdmin(false); return; }
+  document.getElementById("loginModal").classList.add("open");
+}
+function checkAdminPass(){
+  const val = document.getElementById("adminPass").value;
+  if(val === ADMIN_PASSWORD){
+    toggleAdmin(true);
+    closeModal("loginModal");
+    document.getElementById("adminPass").value = "";
+  } else {
+    alert("Incorrect password.");
+  }
+}
+function toggleAdmin(state){
+  isAdmin = state;
+  document.getElementById("adminBar").classList.toggle("on", state);
+  applyFilters();
+  renderAdminExtras();
+}
+function renderAdminExtras(){
+  let existing = document.getElementById("adminAddBtn");
+  if(isAdmin && !existing){
+    const btn = document.createElement("button");
+    btn.id = "adminAddBtn";
+    btn.className = "btn btn-primary";
+    btn.style.cssText = "position:fixed; bottom:18px; right:18px; z-index:60; color:#fff;";
+    btn.innerHTML = "+ Add Product";
+    btn.onclick = ()=>openProductModal();
+    document.body.appendChild(btn);
+
+    const bankBtn = document.createElement("button");
+    bankBtn.id = "adminBankBtn";
+    bankBtn.className = "btn btn-outline";
+    bankBtn.style.cssText = "position:fixed; bottom:74px; right:18px; z-index:60; background:#fff; color:var(--deep-blue); border:1px solid var(--line);";
+    bankBtn.innerHTML = "Edit Bank Details";
+    bankBtn.onclick = ()=>openBankModal();
+    document.body.appendChild(bankBtn);
+  } else if(!isAdmin && existing){
+    existing.remove();
+    document.getElementById("adminBankBtn")?.remove();
+  }
+}
+
+/* ===================== ADMIN: PRODUCT CRUD ===================== */
+let pendingImage = "";
+function previewImage(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    pendingImage = reader.result;
+    const prev = document.getElementById("pImagePreview");
+    prev.src = pendingImage;
+    prev.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+}
+
+function openProductModal(id){
+  pendingImage = "";
+  document.getElementById("productModalTitle").textContent = id ? "Edit Product" : "Add Product";
+  document.getElementById("pId").value = id || "";
+  document.getElementById("pImagePreview").style.display = "none";
+  document.getElementById("pImageFile").value = "";
+  if(id){
+    const p = products.find(pr=>pr.id===id);
+    document.getElementById("pName").value = p.name;
+    document.getElementById("pCategory").value = p.category;
+    document.getElementById("pBrand").value = p.brand;
+    document.getElementById("pPrice").value = p.price;
+    document.getElementById("pDiscount").value = p.discount || "";
+    document.getElementById("pModel").value = p.model;
+    document.getElementById("pColour").value = p.colour;
+    document.getElementById("pMaterial").value = p.material;
+    document.getElementById("pStock").value = p.stock;
+    document.getElementById("pDesc").value = p.desc;
+    if(p.img){ pendingImage = p.img; document.getElementById("pImagePreview").src = p.img; document.getElementById("pImagePreview").style.display="block"; }
+  } else {
+    ["pName","pBrand","pPrice","pDiscount","pModel","pColour","pMaterial","pStock","pDesc"].forEach(f=>document.getElementById(f).value="");
+  }
+  document.getElementById("productModal").classList.add("open");
+}
+
+function editProduct(id){ openProductModal(id); }
+
+function saveProduct(){
+  const id = document.getElementById("pId").value || String(Date.now());
+  const name = document.getElementById("pName").value.trim();
+  if(!name){ alert("Product name is required."); return; }
+  const newP = {
+    id,
+    name,
+    category: document.getElementById("pCategory").value,
+    brand: document.getElementById("pBrand").value,
+    price: Number(document.getElementById("pPrice").value)||0,
+    discount: Number(document.getElementById("pDiscount").value)||0,
+    model: document.getElementById("pModel").value,
+    colour: document.getElementById("pColour").value,
+    material: document.getElementById("pMaterial").value,
+    stock: Number(document.getElementById("pStock").value)||0,
+    desc: document.getElementById("pDesc").value,
+    img: pendingImage
+  };
+  const idx = products.findIndex(p=>p.id===id);
+  if(idx>-1) products[idx] = newP; else products.push(newP);
+  saveProducts();
+  closeModal("productModal");
+  applyFilters();
+}
+
+function deleteProduct(id){
+  if(!confirm("Delete this product?")) return;
+  products = products.filter(p=>p.id!==id);
+  saveProducts();
+  applyFilters();
+}
+
+/* ===================== ADMIN: BANK DETAILS ===================== */
+function openBankModal(){
+  document.getElementById("bBank").value = bankDetails.bank||"";
+  document.getElementById("bAcct").value = bankDetails.acct||"";
+  document.getElementById("bankModal").classList.add("open");
+}
+function saveBank(){
+  bankDetails = { bank: document.getElementById("bBank").value, acct: document.getElementById("bAcct").value };
+  localStorage.setItem("izuvera_bank", JSON.stringify(bankDetails));
+  renderBank();
+  closeModal("bankModal");
+}
+function renderBank(){
+  document.getElementById("bankName").textContent = bankDetails.bank || "— set in Admin —";
+  document.getElementById("bankAcct").textContent = bankDetails.acct || "— set in Admin —";
+}
+
+function closeModal(id){ document.getElementById(id).classList.remove("open"); }
+
+/* ===================== INIT ===================== */
+renderCategories();
+applyFilters();
+renderCartCount();
+renderBank();
+</script>
+</body>
+</html>
